@@ -43,8 +43,21 @@ public class ZhidaoFragment extends Fragment {
 
 	private List<String> getDataList(){
 		List<String> list = new ArrayList<String>();
+		String []imgs = {
+				"http://list.image.baidu.com/t/image_category/galleryimg/menstar/hk/wang_li_hong.jpg",
+				"http://list.image.baidu.com/t/image_category/galleryimg/menstar/hk/wu_zun.jpg",
+				"http://list.image.baidu.com/t/image_category/galleryimg/menstar/hk/he_run_dong.jpg",
+				"http://list.image.baidu.com/t/image_category/galleryimg/menstar/hk/jin_cheng_wu.jpg",
+				"http://list.image.baidu.com/t/image_category/galleryimg/menstar/hk/wu_yan_zu.jpg"
+		};
+		int idx = 0;
 		for(int i=0;i<100;i++){
-			list.add("Hello" + System.currentTimeMillis());
+			idx = i%5;
+			if(idx <5){
+				list.add(imgs[idx] +"|Hello" + System.currentTimeMillis() +"=" +i);
+			}else{
+				list.add("0|Hello" + System.currentTimeMillis() +"=" + i);
+			}
 		}
 		return list;
 	}

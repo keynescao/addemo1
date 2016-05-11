@@ -110,9 +110,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         // 设置底部tab变化
         knowImg.setImageResource(R.drawable.btn_know_pre);
         knowTv.setTextColor(getResources().getColor(R.color.bottomtab_press));
+
         iWantKnowImg.setImageResource(R.drawable.btn_wantknow_nor);
-        iWantKnowTv.setTextColor(getResources().getColor(
-                R.color.bottomtab_normal));
+        iWantKnowTv.setTextColor(getResources().getColor(R.color.bottomtab_normal));
+
         meImg.setImageResource(R.drawable.btn_my_nor);
         meTv.setTextColor(getResources().getColor(R.color.bottomtab_normal));
     }
@@ -128,9 +129,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
         knowImg.setImageResource(R.drawable.btn_know_nor);
         knowTv.setTextColor(getResources().getColor(R.color.bottomtab_normal));
+
         iWantKnowImg.setImageResource(R.drawable.btn_wantknow_pre);
-        iWantKnowTv.setTextColor(getResources().getColor(
-                R.color.bottomtab_press));
+        iWantKnowTv.setTextColor(getResources().getColor(R.color.bottomtab_press));
+
         meImg.setImageResource(R.drawable.btn_my_nor);
         meTv.setTextColor(getResources().getColor(R.color.bottomtab_normal));
 
@@ -145,11 +147,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         }
 
         addOrShowFragment(getSupportFragmentManager().beginTransaction(), meFragment);
+
         knowImg.setImageResource(R.drawable.btn_know_nor);
         knowTv.setTextColor(getResources().getColor(R.color.bottomtab_normal));
+
         iWantKnowImg.setImageResource(R.drawable.btn_wantknow_nor);
-        iWantKnowTv.setTextColor(getResources().getColor(
-                R.color.bottomtab_normal));
+        iWantKnowTv.setTextColor(getResources().getColor(R.color.bottomtab_normal));
+
         meImg.setImageResource(R.drawable.btn_my_pre);
         meTv.setTextColor(getResources().getColor(R.color.bottomtab_press));
 
