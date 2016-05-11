@@ -1,8 +1,9 @@
 package com.example.keynes.adpter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,35 @@ public class ListDataAdapter extends BaseAdapter {
 
         String url  = value[0];
         if(url.length()>1){
-            ImageUtil.loadImageDrawable(tag.imageView,url);
+            ImageUtil.loadImageDrawable(url, new ImageUtil.ImageLoadListener() {
+                @Override
+                public void load(Drawable drawable) {
+                    //tag.imageView.setImageDrawable(drawable);
+                    tag.imageView.setBackground(drawable);
+                    tag.imageView.setOnClickListener(new ImageView.OnClickListener(){
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                            builder.setMessage(String.valueOf(System.currentTimeMillis()))
+                                    .setTitle("TimeUnix")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        }
+                    });
+                }
+            });
         }else{
             tag.imageView.setImageResource(R.drawable.btn_know_nor);
         }

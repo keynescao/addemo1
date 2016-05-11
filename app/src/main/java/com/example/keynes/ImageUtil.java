@@ -17,12 +17,12 @@ import java.net.URL;
 public class ImageUtil {
 
 
-    public static Drawable loadImageDrawable(final ImageView imageView,final String urlPath){
+    public static Drawable loadImageDrawable(final String urlPath,final ImageLoadListener imageLoadListener){
 
         final Handler handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
-                imageView.setImageDrawable((Drawable)msg.obj);
+                imageLoadListener.load((Drawable)msg.obj);
             }
         };
 
@@ -63,5 +63,11 @@ public class ImageUtil {
         return null;
     }
 
+
+    public interface ImageLoadListener{
+
+        public void load(Drawable drawable);
+
+    }
 
 }
