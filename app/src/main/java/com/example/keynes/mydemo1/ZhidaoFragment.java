@@ -10,6 +10,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.keynes.adpter.ListDataAdapter;
+import com.lidroid.xutils.BitmapUtils;
+import com.lidroid.xutils.bitmap.PauseOnScrollListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,10 @@ public class ZhidaoFragment extends Fragment {
 
 
 		mListView.setAdapter(new ListDataAdapter(getDataList(),getActivity()));
+
+		BitmapUtils bitmapUtils = new BitmapUtils(getContext());
+
+		mListView.setOnScrollListener(new PauseOnScrollListener(bitmapUtils,false,true));
 
 		return view;
 	}

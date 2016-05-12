@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.keynes.ImageUtil;
 import com.example.keynes.mydemo1.R;
+import com.lidroid.xutils.BitmapUtils;
 
 import org.w3c.dom.Text;
 
@@ -26,11 +27,13 @@ public class ListDataAdapter extends BaseAdapter {
     private List<String> data;
     private Context mContext;
     private LayoutInflater layoutInflater;
+    private BitmapUtils bitmapUtils;
 
     public ListDataAdapter(List<String> list, Context mContext){
         this.data = list;
         this.mContext = mContext;
         this.layoutInflater = LayoutInflater.from(mContext);
+        this.bitmapUtils = new BitmapUtils(mContext);
     }
 
     @Override
@@ -66,7 +69,7 @@ public class ListDataAdapter extends BaseAdapter {
 
         String url  = value[0];
         if(url.length()>1){
-            ImageUtil.loadImageDrawable(url, new ImageUtil.ImageLoadListener() {
+            /*ImageUtil.loadImageDrawable(url, new ImageUtil.ImageLoadListener() {
                 @Override
                 public void load(Drawable drawable) {
                     //tag.imageView.setImageDrawable(drawable);
@@ -94,7 +97,34 @@ public class ListDataAdapter extends BaseAdapter {
                         }
                     });
                 }
+            });*/
+
+            bitmapUtils.display(tag.imageView,value[0]);
+
+            tag.imageView.setOnClickListener(new ImageView.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setMessage(String.valueOf(System.currentTimeMillis()))
+                            .setTitle("TimeUnix")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create()
+                            .show();
+                }
             });
+
+
         }else{
             tag.imageView.setImageResource(R.drawable.btn_know_nor);
         }
