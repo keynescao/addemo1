@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/top_tab"
         android:layout_width="match_parent"
         android:layout_height="50dip"
@@ -18,7 +18,7 @@
             android:contentDescription="@null"
             android:padding="5dp"/>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
     <LinearLayout
         android:id="@+id/ll_bottom_tab"
         android:layout_width="match_parent"
