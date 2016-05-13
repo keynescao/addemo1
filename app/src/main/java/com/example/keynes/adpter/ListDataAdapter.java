@@ -125,8 +125,6 @@ public class ListDataAdapter extends BaseAdapter {
             });
 
 
-        }else{
-            tag.imageView.setImageResource(R.drawable.btn_know_nor);
         }
         return convertView;
     }

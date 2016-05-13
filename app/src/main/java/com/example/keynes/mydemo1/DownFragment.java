@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  * @author wwj_748
  *
  */
-public class MeFragment extends Fragment {
+public class DownFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

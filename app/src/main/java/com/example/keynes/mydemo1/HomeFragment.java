@@ -3,12 +3,15 @@ package com.example.keynes.mydemo1;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.keynes.adpter.ListDataAdapter;
@@ -18,22 +21,25 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.PauseOnScrollListener;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
+
 
 /**
  * 知道碎片界面
  * @author wwj_748
  *
  */
-public class ZhidaoFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
 	private PullToRefreshListView mListView;
 
 	private LinkedList<String> listData = new LinkedList<String>();
 
 	private ListDataAdapter dataAdapter;
+
+	private LinearLayout loadingLayout;
+	private ImageView layoutImg;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +51,11 @@ public class ZhidaoFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.main_tab1_fragment, container,false);
 
-		mListView = (PullToRefreshListView )view.findViewById(R.id.listView1);
+		loadingLayout = (LinearLayout)view.findViewById(R.id.loading_layout);
+		layoutImg  = (ImageView)view.findViewById(R.id.loading_img);
+		layoutImg.setAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.loading));
+		mListView = (PullToRefreshListView )view.findViewById(R.id.starListView);
+		mListView.setVisibility(View.GONE);
 
 		ILoadingLayout  layoutlab =  mListView.getLoadingLayoutProxy(true,false);
 		layoutlab.setPullLabel("下拉刷新...");
@@ -63,13 +73,38 @@ public class ZhidaoFragment extends Fragment {
 			}
 
 		});
-		listData = getDataList();
-		dataAdapter = new ListDataAdapter(listData,getActivity());
-		mListView.setAdapter(dataAdapter);
+
+
+		new Thread(){
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				listData = getDataList();
+				handler.sendMessage(handler.obtainMessage(0));
+			}
+		}.start();
 
 
 		return view;
 	}
+
+	Handler handler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+
+			dataAdapter = new ListDataAdapter(listData,getActivity());
+			mListView.setAdapter(dataAdapter);
+
+			mListView.setVisibility(View.VISIBLE);
+			loadingLayout.setVisibility(View.GONE);
+		}
+	};
+
+
 
 	class LoadData extends AsyncTask<Void,Void,LinkedList<String>>{
 		@Override
@@ -89,6 +124,7 @@ public class ZhidaoFragment extends Fragment {
 			listData.addAll(0,s);
 			dataAdapter.notifyDataSetChanged();
 			mListView.onRefreshComplete();
+
 			super.onPostExecute(s);
 		}
 	}
